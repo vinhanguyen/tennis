@@ -1,0 +1,47 @@
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+h1 {
+  flex: 1;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table {
+  flex: 1;
+}
+
+td {
+  padding: 1em;
+}
+
+td:nth-child(n+3) {
+  text-align: right;
+}
+
+nav {
+  flex: 2;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+button {
+  flex: 1;
+}
+
+button:nth-child(n+4) {
+  flex-basis: 100%;
+}
