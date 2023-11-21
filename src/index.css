@@ -26,11 +26,11 @@ table {
 
 td {
   padding: 1em;
-  font-size: large;
+  font-size: larger;
 }
 
-td:nth-child(n+3) {
-  text-align: right;
+td:nth-child(n+2) {
+  text-align: center;
 }
 
 nav {
@@ -41,7 +41,7 @@ nav {
 
 button {
   flex: 1;
-  font-size: large;
+  font-size: larger;
 }
 
 button:nth-child(n+4) {
