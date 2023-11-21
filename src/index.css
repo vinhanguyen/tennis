@@ -26,6 +26,7 @@ table {
 
 td {
   padding: 1em;
+  font-size: large;
 }
 
 td:nth-child(n+3) {
@@ -40,6 +41,7 @@ nav {
 
 button {
   flex: 1;
+  font-size: large;
 }
 
 button:nth-child(n+4) {
