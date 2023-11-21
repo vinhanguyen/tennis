@@ -1,35 +1,132 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Point } from "./point";
+import Score from "./Score";
+import Scoreboard from "./Scoreboard";
+import Controls from "./Controls";
+import { addPoint, deleteAllPoints, deleteLastPoint, getLastPoint } from "./idb";
 
-function App() {
-  const [count, setCount] = useState(0)
+const initialState: Point = {
+  points: [0, 0],
+  games: [0, 0],
+  p1Serve: true,
+  tiebreak: false,
+  p1StartTiebreak: false,
+};
+
+export default function App() {
+  const [current, setCurrent] = useState(initialState);
+  
+  useEffect(() => {
+    (async () => {
+      const point = await getLastPoint();
+      setCurrent(point || initialState);
+    })();
+  }, []);
+  
+  async function handlePoint(winner: 1|2) {
+    let nextPoints = [...current.points];
+    if (winner === 1) {
+      nextPoints[0] += 1;
+    } else {
+      nextPoints[1] += 1;
+    }
+
+    let nextGames = [...current.games];
+    let p1ServeNext = current.p1Serve;
+    let tiebreakNext = current.tiebreak;
+    const [p1, p2] = nextPoints;
+    if (current.tiebreak) {
+      if (p1 >= 7 && p1 - p2 >= 2) {
+        nextGames[0] += 1;
+        nextPoints = [0, 0];
+        p1ServeNext = !current.p1StartTiebreak;
+        tiebreakNext = false;
+      } else if (p2 >= 7 && p2 - p1 >= 2) {
+        nextGames[1] += 1;
+        nextPoints = [0, 0];
+        p1ServeNext = !current.p1StartTiebreak;
+        tiebreakNext = false;
+      } else if ((p1 + p2) % 2 !== 0) {
+        p1ServeNext = !current.p1Serve;
+      }
+    } else {
+      if (p1 >= 4 && p1 - p2 >= 2) {
+        nextGames[0] += 1;
+        nextPoints = [0, 0];
+        p1ServeNext = !current.p1Serve;
+      } else if (p2 >= 4 && p2 - p1 >= 2) {
+        nextGames[1] += 1;
+        nextPoints = [0, 0];
+        p1ServeNext = !current.p1Serve;
+      }
+    }
+
+    const nextPoint = {
+      ...current,
+      points: nextPoints,
+      games: nextGames,
+      p1Serve: p1ServeNext,
+      tiebreak: tiebreakNext,
+    };
+
+    await addPoint(nextPoint);
+
+    setCurrent(nextPoint);
+  }
+
+  async function handleUndo() {
+    await deleteLastPoint();
+
+    const point = await getLastPoint();
+    
+    setCurrent(point || initialState);
+  }
+
+  async function handleTiebreak() {
+    const nextPoint = {
+      ...current,
+      tiebreak: true,
+      p1StartTiebreak: current.p1Serve,
+    };
+
+    await addPoint(nextPoint);
+
+    setCurrent(nextPoint);
+  }
+
+  async function handleToggleServe() {
+    const nextPoint = {
+      ...current,
+      p1Serve: !current.p1Serve,
+    };
+
+    await addPoint(nextPoint);
+
+    setCurrent(nextPoint);
+  }
+
+  async function handleReset() {
+    if (!confirm('Reset?')) {
+      return;
+    }
+    
+    await deleteAllPoints();
+
+    setCurrent(initialState);
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Score point={current} />
+      <Scoreboard point={current} />
+      <Controls
+        point={current}
+        onPoint={handlePoint}
+        onUndo={handleUndo}
+        onTiebreak={handleTiebreak}
+        onToggleServe={handleToggleServe}
+        onReset={handleReset}
+      />
     </>
-  )
+  );
 }
-
-export default App
