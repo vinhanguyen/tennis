@@ -33,17 +33,21 @@ export default function Scoreboard({point}: ScoreboardProps) {
       <tbody>
         <tr>
           <td>Player 1</td>
-          <td>{p1Serve && <span>&#11044;</span>}</td>
+          <td>{p1Serve && <Ball />}</td>
           <td>{p1Games}</td>
           <td>{p1Points}</td>
         </tr>
         <tr>
           <td>Player 2</td>
-          <td>{!p1Serve && <span>&#11044;</span>}</td>
+          <td>{!p1Serve && <Ball />}</td>
           <td>{p2Games}</td>
           <td>{p2Points}</td>
         </tr>
       </tbody>
     </table>
   );
+}
+
+function Ball() {
+  return <span>&#9679;</span>;
 }
