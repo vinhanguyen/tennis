@@ -27,9 +27,6 @@ table {
 td {
   padding: 1em;
   font-size: larger;
-}
-
-td:nth-child(n+2) {
   text-align: center;
 }
 

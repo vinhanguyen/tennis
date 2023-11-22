@@ -32,13 +32,13 @@ export default function Scoreboard({point}: ScoreboardProps) {
     <table>
       <tbody>
         <tr>
-          <td>🟥 Red</td>
+          <td>🟥</td>
           <td>{p1Serve && '●'}</td>
           <td>{p1Games}</td>
           <td>{p1Points}</td>
         </tr>
         <tr>
-          <td>🟦 Blue</td>
+          <td>🟦</td>
           <td>{!p1Serve && '●'}</td>
           <td>{p2Games}</td>
           <td>{p2Points}</td>
