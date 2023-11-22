@@ -106,7 +106,7 @@ export default function App() {
   }
 
   async function handleReset() {
-    if (!confirm('Confirm reset.')) {
+    if (!confirm('Reset?')) {
       return;
     }
     
