@@ -21,12 +21,17 @@ h1 {
   align-items: center;
 }
 
-table {
+section {
   flex: 1;
+  display: flex;
+  flex-flow: column wrap;
 }
 
-td {
-  text-align: center;
+section div {
+  flex: 1 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 footer {
