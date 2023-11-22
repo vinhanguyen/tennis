@@ -21,15 +21,20 @@ h1 {
   align-items: center;
 }
 
-table {
+.scoreboard {
   flex: 1;
+  display: flex;
+  flex-flow: column wrap;
 }
 
-td {
-  text-align: center;
+.scoreboard > div {
+  flex: 1 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-nav {
+.controls {
   flex: 2;
   display: flex;
   flex-flow: row wrap;
