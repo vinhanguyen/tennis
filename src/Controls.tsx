@@ -25,7 +25,7 @@ export default function Controls({
   return (
     <nav>
       <button onClick={() => onPoint(1)}>Player 1</button>
-      <button onClick={onUndo}>Undo</button>
+      <button onClick={onUndo}>↩</button>
       <button onClick={() => onPoint(2)}>Player 2</button>
       <button disabled={tiebreak || !newGame} onClick={onTiebreak}>Play Tiebreak</button>
       <button disabled={!newMatch || tiebreak} onClick={onToggleServe}>Toggle Serve</button>
