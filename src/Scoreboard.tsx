@@ -29,15 +29,21 @@ export default function Scoreboard({point}: ScoreboardProps) {
   const [p1Points, p2Points] = mappedPoints;
 
   return (
-    <div className="scoreboard">
-      <div>🟥</div>
-      <div>🟦</div>
-      <div>{p1Serve && '●'}</div>
-      <div>{!p1Serve && '●'}</div>
-      <div>{p1Games}</div>
-      <div>{p2Games}</div>
-      <div>{p1Points}</div>
-      <div>{p2Points}</div>
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>🟥</td>
+          <td>{p1Serve && '●'}</td>
+          <td>{p1Games}</td>
+          <td>{p1Points}</td>
+        </tr>
+        <tr>
+          <td>🟦</td>
+          <td>{!p1Serve && '●'}</td>
+          <td>{p2Games}</td>
+          <td>{p2Points}</td>
+        </tr>
+      </tbody>
+    </table>
   );
 }

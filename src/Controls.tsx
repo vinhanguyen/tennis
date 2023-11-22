@@ -23,13 +23,13 @@ export default function Controls({
   const newMatch = newGame && gamesPlayed === 0;
 
   return (
-    <div className="controls">
+    <footer>
       <button onClick={() => onPoint(1)}>🟥</button>
       <button onClick={onUndo}>↩</button>
       <button onClick={() => onPoint(2)}>🟦</button>
       <button disabled={tiebreak || !newGame} onClick={onTiebreak}>Play Tiebreak</button>
       <button disabled={!newMatch || tiebreak} onClick={onToggleServe}>Toggle Serve</button>
       <button onClick={onReset}>Reset</button>
-    </div>
+    </footer>
   );
 }
