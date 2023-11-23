@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { POINT_NAMES, Point } from "./point";
 
-const userAgent = window.navigator.userAgent;
+const isMac = window.navigator.userAgent.match(/Mac/i);
 
 type ScoreboardProps = {
   point: Point,
@@ -32,7 +32,7 @@ export default function Scoreboard({point}: ScoreboardProps) {
 
   const [p1Points, p2Points] = mappedPoints;
 
-  const ball = userAgent.toLowerCase().indexOf('mac') !== -1 ? '🎾' : '●';
+  const ball = isMac ? '🎾' : '●';
 
   return (
     <section>
