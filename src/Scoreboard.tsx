@@ -34,10 +34,10 @@ export default function Scoreboard({point}: ScoreboardProps) {
       <div>🟦</div>
       <div>{p1Serve && '●'}</div>
       <div>{!p1Serve && '●'}</div>
-      <div>{p1Points}</div>
-      <div>{p2Points}</div>
       <div>{p1Games}</div>
       <div>{p2Games}</div>
+      <div>{p1Points}</div>
+      <div>{p2Points}</div>
     </section>
   );
 }
