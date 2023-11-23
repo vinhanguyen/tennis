@@ -8,6 +8,7 @@ import { addPoint, deleteAllPoints, deleteLastPoint, getLastPoint } from "./idb"
 const initialState: Point = {
   points: [0, 0],
   games: [0, 0],
+  sets: [],
   p1Serve: true,
   tiebreak: false,
   p1StartTiebreak: false,
@@ -105,6 +106,25 @@ export default function App() {
     setCurrent(nextPoint);
   }
 
+  async function handleNewSet() {
+    const nextPoints = [0, 0];
+    const nextGames = [0, 0];
+    const nextSets = [...current.sets, [...current.games]];
+    const nextTiebreak = false;
+
+    const nextPoint = {
+      ...current,
+      points: nextPoints,
+      games: nextGames,
+      sets: nextSets,
+      tiebreak: nextTiebreak,
+    };
+
+    await addPoint(nextPoint);
+
+    setCurrent(nextPoint);
+  }
+
   async function handleReset() {
     if (!confirm('Reset?')) {
       return;
@@ -125,6 +145,7 @@ export default function App() {
         onUndo={handleUndo}
         onTiebreak={handleTiebreak}
         onToggleServe={handleToggleServe}
+        onNewSet={handleNewSet}
         onReset={handleReset}
       />
     </>

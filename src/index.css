@@ -34,6 +34,10 @@ section div {
   align-items: center;
 }
 
+section div:nth-last-child(-n+4) {
+  font-weight: bold;
+}
+
 footer {
   flex: 2;
   display: flex;

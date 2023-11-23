@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { POINT_NAMES, Point } from "./point";
 
 type ScoreboardProps = {
@@ -10,6 +11,7 @@ export default function Scoreboard({point}: ScoreboardProps) {
     p1Serve,
     games: [p1Games, p2Games],
     points: [p1, p2],
+    sets,
   } = point;
 
   let mappedPoints;
@@ -34,6 +36,12 @@ export default function Scoreboard({point}: ScoreboardProps) {
       <div>🟦</div>
       <div>{p1Serve && '●'}</div>
       <div>{!p1Serve && '●'}</div>
+      {sets.map(([g1, g2], i) => (
+        <Fragment key={i}>
+          <div>{g1}</div>
+          <div>{g2}</div>
+        </Fragment>
+      ))}
       <div>{p1Games}</div>
       <div>{p2Games}</div>
       <div>{p1Points}</div>
