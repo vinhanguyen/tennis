@@ -3,7 +3,8 @@ import { Point } from "./point";
 const DB_NAME = 'tennis';
 const DB_VERSION = 2;
 
-function createDatabase({target: {result: db}}: any) {
+function handleUpgrade({target: {result: db}}: any) {
+  db.deleteObjectStore('points');
   db.createObjectStore('points', {autoIncrement: true});  
 }
 
@@ -11,7 +12,7 @@ export function addPoint(point: Point): Promise<Point> {
   return new Promise((resolve, reject) => {
     const open = indexedDB.open(DB_NAME, DB_VERSION);
   
-    open.onupgradeneeded = createDatabase;
+    open.onupgradeneeded = handleUpgrade;
   
     open.onerror = ({target: error}) => {
       reject(error);
@@ -37,7 +38,7 @@ export function getLastPoint(): Promise<Point|null> {
   return new Promise((resolve, reject) => {
     const open = indexedDB.open(DB_NAME, DB_VERSION);
   
-    open.onupgradeneeded = createDatabase;
+    open.onupgradeneeded = handleUpgrade;
   
     open.onerror = ({target: error}) => {
       reject(error);
@@ -67,7 +68,7 @@ export function deleteLastPoint(): Promise<number|null> {
   return new Promise((resolve, reject) => {
     const open = indexedDB.open(DB_NAME, DB_VERSION);
   
-    open.onupgradeneeded = createDatabase;
+    open.onupgradeneeded = handleUpgrade;
   
     open.onerror = ({target: error}) => {
       reject(error);
@@ -104,7 +105,7 @@ export function deleteAllPoints(): Promise<number> {
   return new Promise((resolve, reject) => {
     const open = indexedDB.open(DB_NAME, DB_VERSION);
   
-    open.onupgradeneeded = createDatabase;
+    open.onupgradeneeded = handleUpgrade;
   
     open.onerror = ({target: error}) => {
       reject(error);
