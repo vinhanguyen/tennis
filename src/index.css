@@ -23,6 +23,7 @@ h1 {
 
 section {
   flex: 1;
+  max-height: 25%;
   display: flex;
   flex-flow: column wrap;
 }
