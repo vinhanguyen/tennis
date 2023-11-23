@@ -34,8 +34,8 @@ section div {
   align-items: center;
 }
 
-section div:nth-last-child(-n+4) {
-  font-weight: bold;
+section div:nth-child(n+5):not(:nth-last-child(-n+4)) {
+  color: grey;
 }
 
 footer {
