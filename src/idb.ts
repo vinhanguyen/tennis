@@ -1,7 +1,7 @@
 import { Point } from "./point";
 
 const DB_NAME = 'tennis';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 function createDatabase({target: {result: db}}: any) {
   db.createObjectStore('points', {autoIncrement: true});  
