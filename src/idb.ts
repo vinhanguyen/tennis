@@ -4,7 +4,11 @@ const DB_NAME = 'tennis';
 const DB_VERSION = 2;
 
 function handleUpgrade({target: {result: db}}: any) {
-  db.deleteObjectStore('points');
+  try {
+    db.deleteObjectStore('points');
+  } catch(e) {
+    console.log(e);
+  }
   db.createObjectStore('points', {autoIncrement: true});  
 }
 
