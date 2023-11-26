@@ -37,28 +37,31 @@ export default function App() {
     let tiebreakNext = current.tiebreak;
     const [p1, p2] = nextPoints;
     if (current.tiebreak) {
+      const endTiebreak = () => {
+        nextPoints = [0, 0];
+        tiebreakNext = false;
+        p1ServeNext = !current.p1StartTiebreak;
+      };
       if (p1 >= 7 && p1 - p2 >= 2) {
         nextGames[0] += 1;
-        nextPoints = [0, 0];
-        p1ServeNext = !current.p1StartTiebreak;
-        tiebreakNext = false;
+        endTiebreak();
       } else if (p2 >= 7 && p2 - p1 >= 2) {
         nextGames[1] += 1;
-        nextPoints = [0, 0];
-        p1ServeNext = !current.p1StartTiebreak;
-        tiebreakNext = false;
+        endTiebreak();
       } else if ((p1 + p2) % 2 !== 0) {
         p1ServeNext = !current.p1Serve;
       }
     } else {
+      const endGame = () => {
+        nextPoints = [0, 0];
+        p1ServeNext = !current.p1Serve;
+      };
       if (p1 >= 4 && p1 - p2 >= 2) {
         nextGames[0] += 1;
-        nextPoints = [0, 0];
-        p1ServeNext = !current.p1Serve;
+        endGame();
       } else if (p2 >= 4 && p2 - p1 >= 2) {
         nextGames[1] += 1;
-        nextPoints = [0, 0];
-        p1ServeNext = !current.p1Serve;
+        endGame();
       }
     }
 
