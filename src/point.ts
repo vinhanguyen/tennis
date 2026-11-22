@@ -7,4 +7,5 @@ export interface Point {
   p1Serve: boolean;
   tiebreak: boolean;
   p1StartTiebreak: boolean;
+  noAd: boolean;
 }

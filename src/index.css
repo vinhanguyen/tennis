@@ -13,12 +13,15 @@ body {
   flex-flow: column nowrap;
 }
 
-h1 {
-  flex: 1;
+h1, h2 {
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+h1 {
+  flex: 1;
 }
 
 section {

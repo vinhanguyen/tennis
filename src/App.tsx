@@ -4,6 +4,7 @@ import Score from "./Score";
 import Scoreboard from "./Scoreboard";
 import Controls from "./Controls";
 import { addPoint, deleteAllPoints, deleteLastPoint, getLastPoint } from "./idb";
+import Format from "./Format";
 
 const initialState: Point = {
   points: [0, 0],
@@ -12,6 +13,7 @@ const initialState: Point = {
   p1Serve: true,
   tiebreak: false,
   p1StartTiebreak: false,
+  noAd: false,
 };
 
 export default function App() {
@@ -56,10 +58,10 @@ export default function App() {
         nextPoints = [0, 0];
         p1ServeNext = !current.p1Serve;
       };
-      if (p1 >= 4 && p1 - p2 >= 2) {
+      if (p1 >= 4 && (current.noAd || p1 - p2 >= 2)) {
         nextGames[0] += 1;
         endGame();
-      } else if (p2 >= 4 && p2 - p1 >= 2) {
+      } else if (p2 >= 4 && (current.noAd || p2 - p1 >= 2)) {
         nextGames[1] += 1;
         endGame();
       }
@@ -109,6 +111,17 @@ export default function App() {
     setCurrent(nextPoint);
   }
 
+  async function handleToggleNoAd() {
+    const nextPoint = {
+      ...current,
+      noAd: !current.noAd,
+    };
+
+    await addPoint(nextPoint);
+
+    setCurrent(nextPoint);
+  }
+
   async function handleNewSet() {
     const nextPoints = [0, 0];
     const nextGames = [0, 0];
@@ -141,6 +154,7 @@ export default function App() {
   return (
     <>
       <Score point={current} />
+      <Format point={current} />
       <Scoreboard point={current} />
       <Controls
         point={current}
@@ -148,6 +162,7 @@ export default function App() {
         onUndo={handleUndo}
         onTiebreak={handleTiebreak}
         onToggleServe={handleToggleServe}
+        onToggleNoAd={handleToggleNoAd}
         onNewSet={handleNewSet}
         onReset={handleReset}
       />

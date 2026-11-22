@@ -6,6 +6,7 @@ type ControlsProps = {
   onUndo: () => void;
   onTiebreak: () => void;
   onToggleServe: () => void;
+  onToggleNoAd: () => void;
   onNewSet: () => void;
   onReset: () => void;
 };
@@ -16,6 +17,7 @@ export default function Controls({
   onUndo,
   onTiebreak,
   onToggleServe,
+  onToggleNoAd,
   onNewSet,
   onReset,
 }: ControlsProps) {
@@ -31,6 +33,7 @@ export default function Controls({
       <button onClick={() => onPoint(2)}>🟦</button>
       <button disabled={tiebreak || !newGame} onClick={onTiebreak}>Play Tiebreak</button>
       <button disabled={!newSet || tiebreak} onClick={onToggleServe}>Toggle Serve</button>
+      <button disabled={!newSet} onClick={onToggleNoAd}>Toggle Format</button>
       <button onClick={onNewSet}>New Set</button>
       <button onClick={onReset}>Reset</button>
     </footer>
